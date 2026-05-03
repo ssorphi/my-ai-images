@@ -9,7 +9,7 @@
     <p>Type one word and I'll do the rest!</p>
     
     <input type="text" id="userWord" placeholder="e.g. wooden bench" style="padding:15px; width:250px; border-radius:10px; border:2px solid #6200ea; outline:none;">
-    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#6200ea; color:white; border:none; border-radius:10px; font-weight:bold; box-shadow: 0 4px 10px rgba(98,0,234,0.3);">Create!</button>
+    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#6200ea; color:white; border:none; border-radius:10px; font-weight:bold;">Create!</button>
     
     <div style="margin-top:40px;">
         <p id="loading" style="display:none; font-weight:bold; color:#6200ea;">The AI artist is working... 🎨</p>
@@ -27,20 +27,20 @@
             loading.style.display = "block";
             container.innerHTML = ""; 
 
-            // Your Secret Recipe: 40% close up + nature
-            const magicPrompt = word + ", close up 40 percent, beautiful nature background, cinematic lighting, 8k high resolution";
+            // The recipe
+            const magicPrompt = word + ", close up 40 percent, nature background, cinematic lighting";
             const encodedPrompt = encodeURIComponent(magicPrompt);
             
-            // Adding a random seed ensures it doesn't get stuck!
-            const randomSeed = Math.floor(Math.random() * 1000000);
-            const imageUrl = "https://pollinations.ai" + encodedPrompt + "?seed=" + randomSeed + "&nologo=true";
+            // This new link style is much more reliable
+            const imageUrl = "https://pollinations.ai" + encodedPrompt + "?width=1024&height=1024&seed=" + Math.floor(Math.random() * 1000);
             
-            const newImg = new Image();
+            const newImg = document.createElement('img');
             newImg.src = imageUrl;
             newImg.style.maxWidth = "100%";
             newImg.style.borderRadius = "20px";
             newImg.style.boxShadow = "0 15px 40px rgba(0,0,0,0.2)";
             
+            // This makes the image show up the MOMENT it is ready
             newImg.onload = function() {
                 loading.style.display = "none";
                 container.appendChild(newImg);
