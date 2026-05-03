@@ -1,38 +1,44 @@
+html
 <!DOCTYPE html>
 <html lang="en">
-<body style="text-align:center; font-family:sans-serif; background:#f4f4f4; padding:50px;">
-    <h1 style="color:#333;">✨ My AI Image Creator</h1>
+<body style="text-align:center; font-family:sans-serif; background:#f0f2f5; padding:50px;">
+    <h1 style="color:#1a73e8;">✨ My AI Image Creator</h1>
     <p>Type one word and I'll do the rest!</p>
     
-    <input type="text" id="userWord" placeholder="e.g. table" style="padding:15px; width:250px; border-radius:5px; border:1px solid #ccc;">
-    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#6200ea; color:white; border:none; border-radius:5px; font-weight:bold;">Create!</button>
+    <input type="text" id="userWord" placeholder="e.g. wooden bench" style="padding:15px; width:250px; border-radius:10px; border:2px solid #1a73e8;">
+    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#1a73e8; color:white; border:none; border-radius:10px; font-weight:bold; transition: 0.3s;">Create!</button>
     
     <div style="margin-top:30px;">
-        <p id="loading" style="display:none; font-weight:bold; color:#666;">AI is painting for you... 🎨</p>
-        <img id="outputImage" src="" style="max-width:100%; border-radius:15px; display:none; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <p id="loading" style="display:none; font-weight:bold; color:#555;">The AI artist is working... 🎨</p>
+        <div id="imageContainer"></div>
     </div>
 
     <script>
         function generate() {
             const word = document.getElementById('userWord').value;
-            const img = document.getElementById('outputImage');
+            const container = document.getElementById('imageContainer');
             const loading = document.getElementById('loading');
             
-            if(!word) { alert("Please type a word first!"); return; }
+            if(!word) { alert("Please type a word!"); return; }
 
-            // This is your secret recipe: 40% close up + nature background
-            const magicPrompt = word + ", close up 40 percent, beautiful nature background, cinematic lighting, 8k resolution";
+            loading.style.display = "block";
+            container.innerHTML = ""; 
+
+            const magicPrompt = word + ", close up 40 percent, beautiful nature background, cinematic lighting, high quality";
             const encodedPrompt = encodeURIComponent(magicPrompt);
             
-            loading.style.display = "block";
-            img.style.display = "none";
+            const randomSeed = Math.floor(Math.random() * 1000000);
+            const imageUrl = "https://pollinations.ai" + encodedPrompt + "?seed=" + randomSeed + "&nologo=true";
             
-            // This pulls the image from the free AI engine
-            img.src = "https://pollinations.ai" + encodedPrompt + "?width=1024&height=1024&nologo=true";
+            const newImg = new Image();
+            newImg.src = imageUrl;
+            newImg.style.maxWidth = "100%";
+            newImg.style.borderRadius = "15px";
+            newImg.style.boxShadow = "0 8px 24px rgba(0,0,0,0.2)";
             
-            img.onload = function() {
+            newImg.onload = function() {
                 loading.style.display = "none";
-                img.style.display = "inline-block";
+                container.appendChild(newImg);
             }
         }
     </script>
