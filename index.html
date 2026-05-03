@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="text-align:center; font-family:sans-serif; background:#f4f4f4; padding:50px;">
+    <h1 style="color:#333;">✨ My AI Image Creator</h1>
+    <p>Type one word and I'll do the rest!</p>
+    
+    <input type="text" id="userWord" placeholder="e.g. table" style="padding:15px; width:250px; border-radius:5px; border:1px solid #ccc;">
+    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#6200ea; color:white; border:none; border-radius:5px; font-weight:bold;">Create!</button>
+    
+    <div style="margin-top:30px;">
+        <p id="loading" style="display:none; font-weight:bold; color:#666;">AI is painting for you... 🎨</p>
+        <img id="outputImage" src="" style="max-width:100%; border-radius:15px; display:none; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    </div>
+
+    <script>
+        function generate() {
+            const word = document.getElementById('userWord').value;
+            const img = document.getElementById('outputImage');
+            const loading = document.getElementById('loading');
+            
+            if(!word) { alert("Please type a word first!"); return; }
+
+            // This is your secret recipe: 40% close up + nature background
+            const magicPrompt = word + ", close up 40 percent, beautiful nature background, cinematic lighting, 8k resolution";
+            const encodedPrompt = encodeURIComponent(magicPrompt);
+            
+            loading.style.display = "block";
+            img.style.display = "none";
+            
+            // This pulls the image from the free AI engine
+            img.src = "https://pollinations.ai" + encodedPrompt + "?width=1024&height=1024&nologo=true";
+            
+            img.onload = function() {
+                loading.style.display = "none";
+                img.style.display = "inline-block";
+            }
+        }
+    </script>
+</body>
+</html>
