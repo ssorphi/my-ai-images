@@ -1,12 +1,15 @@
-html
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My AI Creator</title>
+</head>
 <body style="text-align:center; font-family:sans-serif; background:#f0f2f5; padding:50px;">
     <h1 style="color:#1a73e8;">✨ My AI Image Creator</h1>
     <p>Type one word and I'll do the rest!</p>
     
     <input type="text" id="userWord" placeholder="e.g. wooden bench" style="padding:15px; width:250px; border-radius:10px; border:2px solid #1a73e8;">
-    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#1a73e8; color:white; border:none; border-radius:10px; font-weight:bold; transition: 0.3s;">Create!</button>
+    <button onclick="generate()" style="padding:15px 25px; cursor:pointer; background:#1a73e8; color:white; border:none; border-radius:10px; font-weight:bold;">Create!</button>
     
     <div style="margin-top:30px;">
         <p id="loading" style="display:none; font-weight:bold; color:#555;">The AI artist is working... 🎨</p>
